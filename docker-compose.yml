@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./src/Backend
+      dockerfile: ./Dockerfile
+    ports:
+      - 3001:3001
+    depends_on: 
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo_container
+    ports:
+      - 27017:27017
+
+  mosquitto:
+    image: eclipse-mosquitto
+    container_name: mosquitto_container
+    ports:
+      - 1883:1883
+      - 9001:9001
+    volumes:
+      - ./config:/mosquitto.conf
