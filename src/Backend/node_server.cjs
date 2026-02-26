@@ -3,8 +3,8 @@ const app = express()
 const mqtt = require('mqtt')
 const DEV_PORT = 3000
 
-const DataModel = require('../Mongo/MQTTDataSchema.cjs')
-const connectToMongoDB = require('../Mongo/mongoose_server.cjs')
+const DataModel = require('./Mongo/MQTTDataSchema.cjs')
+const connectToMongoDB = require('./Mongo/mongoose_server.cjs')
 
 app.get('/database/fetch', async (req,res) => {
     try{
