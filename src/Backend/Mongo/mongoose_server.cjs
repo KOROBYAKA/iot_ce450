@@ -5,10 +5,10 @@ const connectToMongoDB = async() => {
     try{
         await mongoose.connect('mongodb://mongo_container:27017/IoT')
         .then((res) => {
-            console.log('connection succeeded')
+            console.log('connection to mongo established')
         })
         .catch((err) => {
-            console.log('something went wrong')
+            console.log('something went wrong with the mongo connection')
             console.log(err)
         })
     }

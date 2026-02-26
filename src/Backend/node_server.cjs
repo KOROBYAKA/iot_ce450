@@ -35,5 +35,11 @@ app.post('/database/insert', async (req,res) => {
 
 app.listen(DEV_PORT, async () => {
     await connectToMongoDB()
+    const MQTTClient = mqtt.connect('mqtt://mosquitto:1883')
+
+    MQTTClient.on("connect", () => {
+        console.log('connection to MQTT broker successful')
+    })
+
     console.log('server hosting on the specified port')
 })
