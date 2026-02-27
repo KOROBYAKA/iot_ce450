@@ -39,12 +39,22 @@ app.get('/database/fetchLatestBeveragePrice', async (req,res) => {
     }
     catch(err)
     {
-        console.log(err)
         res.status(500).send({msg: 'something went wrong', err})
     }
 
 })
 
+app.get('/database/getHistoricalData', async (req,res) => {
+    try{
+        const result =  await DataModel.find()
+
+        res.status(200).send({msg: 'Getting historical MongoDB database data', historicalData: result})
+    }
+    catch(err)
+    {
+        res.status(500).send({msg: 'something went wrong', err})
+    }
+})
 app.listen(DEV_PORT, async () => {
     await connectToMongoDB()
     const MQTTClient = mqtt.connect('mqtt://mosquitto:1883')
