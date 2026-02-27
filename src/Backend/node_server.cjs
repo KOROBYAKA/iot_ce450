@@ -47,13 +47,19 @@ app.listen(DEV_PORT, async () => {
     )
     })
 
-    MQTTClient.on('message', (topic, payload) => {
-        const receivedPayload = JSON.parse(payload)
-        const humidity = receivedPayload.humidity
-        const temperature = receivedPayload.temperature
-        const microphoneLevel = receivedPayload.micLevel
+    MQTTClient.on('message', async (topic, payload) => {
+        try {
+            const receivedPayload = JSON.parse(payload);
+            const { humidity, temperature, micLevel } = receivedPayload;
 
-    })
+            console.log(humidity, temperature, micLevel)
+            const newModelData = new DataModel({timestamp: new Date(), humidity, temperature, micLevel})
+            await newModelData.save()
+
+        } catch (err) {
+            console.error('Error processing MQTT message:', err);
+        }
+    });
 
     console.log('server hosting on the specified port')
 })
