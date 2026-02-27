@@ -20,9 +20,9 @@ BLEService temperatureService(uuidOfService);
 const int RX_BUFFER_SIZE = 256;
 bool RX_BUFFER_FIXED_LENGTH = false;
 
-// RX / TX Characteristics
+// RX & TX Characteristics
 BLECharacteristic rxChar(uuidOfRxChar,BLEWriteWithoutResponse | BLEWrite,32);
-BLECharacteristic txChar(uuidOfTxChar, BLERead | BLENotify | BLEBroadcast | sizeof(float), false);
+BLECharacteristic txChar(uuidOfTxChar, BLERead | BLENotify, sizeof(float), false);
 
 // Global var
 int sent_once = 0;
@@ -128,20 +128,24 @@ void disconnectedLight() {
 
 
 
-void loop()
-{
+void loop(){
+
   BLEDevice central = BLE.central();
 
   if (central){
     // Only send data if we are connected to a central device.
     while (central.connected()) {
+      
       connectedLight();
+      BLE.poll();
 
-      float temperature = HTS.readTemperature();
+      float temp = HTS.readTemperature();
+      uint8_t temperature = temp;
 
       if (txChar.subscribed()) {
         // Central has enabled notifications
-        txChar.writeValue((byte*)&temperature, sizeof(temperature));
+        //txChar.writeValue((byte*)&temperature, sizeof(temperature));
+        txChar.writeValue(temperature, true);
         Serial.println("Sent temperature (subscribed)!");
         sent_once = 0;
       }
@@ -150,9 +154,8 @@ void loop()
         if(sent_once == 0){
           // No central has subscribed yet
           Serial.println("Waiting for central to subscribe...");
-          sent_once = 1;
+          //sent_once = 1;
         }
-        Serial.println("Waiting for central to subscribe...");
       }
 
       delay(2000);
