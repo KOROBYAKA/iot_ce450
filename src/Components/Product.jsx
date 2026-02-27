@@ -1,5 +1,19 @@
+import { useEffect } from 'react'
 import './Styles.scss'
+import Axios from 'axios'
+
 const Product = () => {
+ useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await Axios.get('http://localhost:3000/database/fetchLatestBeveragePrice');
+                console.log(res);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        fetchData();
+    }, []);
   return (
     <div className='Product'>
         <h2>Dynamic beverage pricing</h2>

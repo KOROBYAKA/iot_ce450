@@ -1,6 +1,9 @@
 const express = require('express')
+const cors = require('cors')
 const app = express()
 const mqtt = require('mqtt')
+app.use(cors({origin: '*'}))
+app.use(express.json())
 const DEV_PORT = 3000
 
 const DataModel = require('./Mongo/MQTTDataSchema.cjs')
