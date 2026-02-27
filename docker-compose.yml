@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
   backend:
+    container_name: backend_container
     build:
       context: ./src/Backend
       dockerfile: ./Dockerfile
@@ -25,3 +26,15 @@ services:
       - 9001:9001
     volumes:
       - ./config:/mosquitto.conf
+
+  frontend:
+      container_name: frontend_container
+      build:
+        context: ./src/Frontend
+        dockerfile: Dockerfile
+      ports:
+        - 5173:5173
+      depends_on: 
+        - mongo
+        - mosquitto
+        - backend
