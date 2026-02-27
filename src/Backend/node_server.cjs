@@ -6,6 +6,8 @@ const DEV_PORT = 3000
 const DataModel = require('./Mongo/MQTTDataSchema.cjs')
 const connectToMongoDB = require('./Mongo/mongoose_server.cjs')
 
+const MQTTTopic = 'SendDataToBackend'
+
 app.get('/database/fetch', async (req,res) => {
     try{
         // TODO: Figure out how the fetching should be done.
@@ -39,6 +41,18 @@ app.listen(DEV_PORT, async () => {
 
     MQTTClient.on("connect", () => {
         console.log('connection to MQTT broker successful')
+        MQTTClient.subscribe(MQTTTopic, () => {
+            console.log(`MQTT Client subscribed to the ${MQTTTopic} topic`)
+        }
+    )
+    })
+
+    MQTTClient.on('message', (topic, payload) => {
+        const receivedPayload = JSON.parse(payload)
+        const humidity = receivedPayload.humidity
+        const temperature = receivedPayload.temperature
+        const microphoneLevel = receivedPayload.micLevel
+
     })
 
     console.log('server hosting on the specified port')
