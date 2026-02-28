@@ -13,10 +13,10 @@ const MQTTTopic = 'SendDataToBackend'
 
 app.get('/database/fetchLatestBeveragePrice', async (req,res) => {
     try{
-        const result =  await DataModel.findOne({}).sort({timestamp: -1})
+        const result =  await DataModel.findOne({}).sort({timestamp: -1});
         if(result != null)
         {
-            const {humidity, temperature, micLevel} = result;
+            const {humidity, temperature, micLevel} = result
             // assuming that the base price for coke zero at 10 deg celsius is 2.5 eur, 
             // then the ratio of eur/degree celsius is 0.25 
             // Adjusting for the humidity into the final calculation, I divide this by 2 => this ratio is 0.125

@@ -39,11 +39,11 @@ const Product = () => {
             <p>The price of the drink is calculated based on the temperature, humidity and microphone level readings from the arduino </p>
             <img 
             className='Image'
-            src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi5.walmartimages.com%2Fasr%2Febe17684-42d0-4eb6-b7e7-6a31802118f6.982edd12a4b11fc73d7a645bb87f70d7.jpeg&f=1&nofb=1&ipt=674d58379ba5afdcc56385a5878df4f7f6f637071bb0892978a69bcd5add69ef' />
+            src={'./Images/CokeZero.jpg'} />
             <p className='Name'>Coke Zero</p>
-            <p className='Price'>Current price: {beverageData.price} eur </p>
-            <p className='Price'>Current temperature: {beverageData.temperature}°C </p>
-            <p className='Price'>Current humidity: {beverageData.humidity}% </p>
+            <p className='Price'>Current price: {beverageData.price.toFixed(2)} eur </p>
+            <p className='Price'>Current temperature: {beverageData.temperature.toFixed(1)}°C </p>
+            <p className='Price'>Current humidity: {Math.round(beverageData.humidity)}% </p>
         </div>
     }
     </>

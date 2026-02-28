@@ -14,7 +14,7 @@ const MQTTClient = mqtt.connect('mqtt://localhost:1883')
     MQTTClient.on("connect", () => {
             console.log('connection to MQTT broker successful')
 
-        MQTTClient.publish('SendDataToBackend', JSON.stringify({humidity:50 , temperature:10.787, micLevel: 10}), (error) => {
+        MQTTClient.publish('SendDataToBackend', JSON.stringify({humidity:50 , temperature:30, micLevel: 10}), (error) => {
             if (error) {
                 console.error(error)
             }
