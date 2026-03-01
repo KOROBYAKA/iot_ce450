@@ -5,6 +5,7 @@ const MQTTDataSchema = new mongoose.Schema({
     humidity: {type: Number, required: true},
     temperature: {type: Number, required: true},
     micLevel: {type: Number, required: true},
+    senseID: {type: String, required: true}
 
 })
 
