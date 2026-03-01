@@ -16,7 +16,7 @@ app.get('/database/fetchLatestBeveragePrice', async (req,res) => {
         const result =  await DataModel.findOne({}).sort({timestamp: -1});
         if(result != null)
         {
-            const {humidity, temperature, micLevel} = result
+            const {humidity, temperature, micLevel, senseID} = result
             // assuming that the base price for coke zero at 10 deg celsius is 2.5 eur, 
             // then the ratio of eur/degree celsius is 0.25 
             // Adjusting for the humidity into the final calculation, I divide this by 2 => this ratio is 0.125
@@ -40,7 +40,7 @@ app.get('/database/fetchLatestBeveragePrice', async (req,res) => {
             {
                 price = 2.5
             }
-            res.status(200).send({msg: 'Getting MongoDB database data', beverageData: {price, temperature, humidity, micLevel}})
+            res.status(200).send({msg: 'Getting MongoDB database data', beverageData: {price, temperature, humidity, micLevel, senseID}})
         }
         else
         {
