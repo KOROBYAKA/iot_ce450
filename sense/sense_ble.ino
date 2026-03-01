@@ -106,9 +106,9 @@ void sendSensorJSON() {
   float volumeDb    = round1(calculateDecibels());
 
   StaticJsonDocument<96> doc;
-  doc["t"] = temperature;
-  doc["h"] = humidity;
-  doc["v"] = volumeDb;
+  doc["temperature"] = temperature;
+  doc["humidity"] = humidity;
+  doc["micLevel"] = volumeDb;
 
   char jsonBuffer[TX_BUFFER_SIZE];
   size_t len = serializeJson(doc, jsonBuffer);
