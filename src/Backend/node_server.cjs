@@ -82,9 +82,9 @@ app.listen(DEV_PORT, async () => {
     MQTTClient.on('message', async (topic, payload) => {
         try {
             const receivedPayload = JSON.parse(payload);
-            const { humidity, temperature, micLevel } = receivedPayload;
+            const { humidity, temperature, micLevel, senseID } = receivedPayload;
 
-            const newModelData = new DataModel({timestamp: new Date(), humidity, temperature, micLevel})
+            const newModelData = new DataModel({timestamp: new Date(), humidity, temperature, micLevel, senseID})
             await newModelData.save()
 
         } catch (err) {
